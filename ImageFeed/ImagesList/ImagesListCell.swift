@@ -13,6 +13,18 @@ final class ImagesListCell: UITableViewCell {
     
     static let reuseIdentifier = "ImagesListCell"
     
+//    lazy private var gradientLabelView: UIView = {
+//        let view = UIView()
+////        view.layer.masksToBounds = true
+//        return view
+//    }()
+    
+    lazy private var gradientImage: UIImageView = {
+        let img = UIImageView()
+        img.image = UIImage(named: "gradient")
+        return img
+    }()
+    
     lazy var cellImage: UIImageView = {
         let img = UIImageView()
         img.layer.cornerRadius = 16
@@ -48,15 +60,19 @@ final class ImagesListCell: UITableViewCell {
     
     //MARK: UI-Setup
     private func setupUI() {
-        
+//        gradientLabelView.addGradient([UIColor.blue, UIColor.red], frame: self.frame)
         self.contentView.backgroundColor = .launchBG
         
         [cellImage,
+//         gradientLabelView,
          likeButton,
-         cellLabel].forEach{
+         cellLabel,
+         gradientImage].forEach{
             $0.translatesAutoresizingMaskIntoConstraints = false
             self.contentView.addSubview($0)
         }
+//        gradientLabelView.addSubview(cellLabel)
+        cellLabel.translatesAutoresizingMaskIntoConstraints = false
         
         //MARK: Constraints
         NSLayoutConstraint.activate([
@@ -72,7 +88,29 @@ final class ImagesListCell: UITableViewCell {
             likeButton.trailingAnchor.constraint(equalTo: cellImage.trailingAnchor),
             likeButton.widthAnchor.constraint(equalToConstant: 44),
             likeButton.heightAnchor.constraint(equalToConstant: 44),
+            
+//            gradientLabelView.topAnchor.constraint(equalTo: cellLabel.topAnchor),
+//            gradientLabelView.bottomAnchor.constraint(equalTo: cellImage.bottomAnchor),
+//            gradientLabelView.leadingAnchor.constraint(equalTo: cellImage.leadingAnchor),
+//            gradientLabelView.trailingAnchor.constraint(equalTo: cellImage.trailingAnchor),
+            
+            gradientImage.topAnchor.constraint(equalTo: cellLabel.topAnchor),
+            gradientImage.bottomAnchor.constraint(equalTo: cellImage.bottomAnchor),
+            gradientImage.leadingAnchor.constraint(equalTo: cellImage.leadingAnchor),
+            gradientImage.trailingAnchor.constraint(equalTo: cellImage.trailingAnchor),
+            
         ])
     }
     
 }
+
+//MARK: Extensions. Разобраться позже
+
+//extension UIView {
+//   func addGradient(_ colors: [UIColor], frame: CGRect = .zero) {
+//      let gradientLayer = CAGradientLayer()
+//      gradientLayer.colors = colors.map{ $0.cgColor }
+//      gradientLayer.frame = frame
+//      layer.addSublayer(gradientLayer)
+//   }
+//}
