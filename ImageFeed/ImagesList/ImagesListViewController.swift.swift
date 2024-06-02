@@ -15,10 +15,9 @@ class ImagesListViewController: UIViewController {
         let table = UITableView()
         table.separatorStyle = .none
         table.backgroundColor = .launchBG
-        table.rowHeight = 200
         table.contentInset = UIEdgeInsets(top: 12, left: 0, bottom: 12, right: 0)
         table.register(ImagesListCell.self, forCellReuseIdentifier: ImagesListCell.reuseIdentifier)
-        table.separatorStyle = .none
+        
         return table
     }()
     
@@ -45,7 +44,17 @@ class ImagesListViewController: UIViewController {
         ])
         
     }
-    func configCell(for cell: ImagesListCell) { }
+    func configCell(for cell: ImagesListCell, with indexPath: IndexPath) {
+        guard let image = UIImage(named: photosName[indexPath.row]) else {
+            return
+        }
+        cell.cellImage.image = image
+        cell.selectionStyle = .none
+        let isLiked = indexPath.row % 2 == 0
+        let likeImage = isLiked ? UIImage(named: "like_button_on") : UIImage(named: "like_button_off")
+        cell.likeButton.setImage(likeImage, for: .normal)
+        
+    }
     
 }
 
@@ -55,7 +64,7 @@ extension ImagesListViewController: UITableViewDelegate, UITableViewDataSource {
     
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
+        print("\(indexPath)")
     }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         photosName.count
@@ -76,16 +85,18 @@ extension ImagesListViewController: UITableViewDelegate, UITableViewDataSource {
     
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: ImagesListCell.reuseIdentifier, for: indexPath) as? ImagesListCell else {
+        let cell = tableView.dequeueReusableCell(withIdentifier: ImagesListCell.reuseIdentifier, for: indexPath)
+
+        guard let imageListCell = cell as? ImagesListCell else {
             return UITableViewCell()
         }
-        
-        let image = self.photosName[indexPath.row]
-        cell.configure(with: image, and: indexPath.row.description)
-        return cell
-        
-        
+
+        configCell(for: imageListCell, with: indexPath)
+
+        return imageListCell
     }
+    
+    
 }
 
 
