@@ -17,7 +17,7 @@ class ImagesListViewController: UIViewController {
         table.backgroundColor = .launchBG
         table.contentInset = UIEdgeInsets(top: 12, left: 0, bottom: 12, right: 0)
         table.register(ImagesListCell.self, forCellReuseIdentifier: ImagesListCell.reuseIdentifier)
-        
+            
         return table
     }()
     

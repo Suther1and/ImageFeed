@@ -17,15 +17,11 @@ final class ImagesListCell: UITableViewCell {
         let img = UIImageView()
         img.layer.cornerRadius = 16
         img.layer.masksToBounds = true
-        img.image = UIImage(named: "0")
         return img
     }()
     
     lazy var likeButton: UIButton = {
         let btn = UIButton()
-        btn.setImage(UIImage(systemName: "heart.fill"), for: .normal)
-        btn.tintColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 0.5)
-        
         return btn
     }()
     
@@ -60,9 +56,7 @@ final class ImagesListCell: UITableViewCell {
             $0.translatesAutoresizingMaskIntoConstraints = false
             self.contentView.addSubview($0)
         }
-        
-         
-        
+    //MARK: Constraints
         NSLayoutConstraint.activate([
             cellImage.topAnchor.constraint(equalTo: self.contentView.layoutMarginsGuide.topAnchor),
             cellImage.bottomAnchor.constraint(equalTo: self.contentView.layoutMarginsGuide.bottomAnchor),
@@ -78,9 +72,6 @@ final class ImagesListCell: UITableViewCell {
             likeButton.widthAnchor.constraint(equalToConstant: 44),
             likeButton.heightAnchor.constraint(equalToConstant: 44),
         ])
-
     }
-    
-    
     
 }
