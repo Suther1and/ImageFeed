@@ -22,12 +22,7 @@ class ImagesListViewController: UIViewController {
         return table
     }()
     
-    
-    //    private lazy var tableViewCell = {
-    //        let cell = UITableViewCell()
-    //
-    //        return cell
-    //    }()
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
