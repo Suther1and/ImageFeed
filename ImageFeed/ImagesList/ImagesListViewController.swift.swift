@@ -48,8 +48,10 @@ class ImagesListViewController: UIViewController {
         guard let image = UIImage(named: photosName[indexPath.row]) else {
             return
         }
+        cell.backgroundColor = .clear
         cell.cellImage.image = image
         cell.selectionStyle = .none
+        
         let isLiked = indexPath.row % 2 == 0
         let likeImage = isLiked ? UIImage(named: "like_button_on") : UIImage(named: "like_button_off")
         cell.likeButton.setImage(likeImage, for: .normal)
@@ -64,7 +66,7 @@ extension ImagesListViewController: UITableViewDelegate, UITableViewDataSource {
     
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        print("\(indexPath)")
+        print("\(indexPath.row)")
     }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         photosName.count
@@ -81,8 +83,7 @@ extension ImagesListViewController: UITableViewDelegate, UITableViewDataSource {
         let cellHeight = image.size.height * scale + imageInsets.top + imageInsets.bottom
         return cellHeight
     }
-    
-    
+
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: ImagesListCell.reuseIdentifier, for: indexPath)

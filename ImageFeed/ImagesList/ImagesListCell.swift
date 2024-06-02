@@ -16,7 +16,8 @@ final class ImagesListCell: UITableViewCell {
     lazy var cellImage: UIImageView = {
         let img = UIImageView()
         img.layer.cornerRadius = 16
-        img.layer.masksToBounds = true
+        img.clipsToBounds = true
+        img.contentMode = .scaleAspectFill
         return img
     }()
     
@@ -58,20 +59,19 @@ final class ImagesListCell: UITableViewCell {
         }
     //MARK: Constraints
         NSLayoutConstraint.activate([
-            cellImage.topAnchor.constraint(equalTo: self.contentView.layoutMarginsGuide.topAnchor),
-            cellImage.bottomAnchor.constraint(equalTo: self.contentView.layoutMarginsGuide.bottomAnchor),
-            cellImage.leadingAnchor.constraint(equalTo: self.contentView.layoutMarginsGuide.leadingAnchor),
-            cellImage.trailingAnchor.constraint(equalTo: self.contentView.layoutMarginsGuide.trailingAnchor),
-
-            
-            cellLabel.leadingAnchor.constraint(equalTo: self.contentView.layoutMarginsGuide.leadingAnchor,constant: 8),
-            cellLabel.bottomAnchor.constraint(equalTo: self.contentView.layoutMarginsGuide.bottomAnchor,constant: -8),
-            
-            likeButton.topAnchor.constraint(equalTo: self.contentView.layoutMarginsGuide.topAnchor),
-            likeButton.trailingAnchor.constraint(equalTo: self.contentView.layoutMarginsGuide.trailingAnchor),
-            likeButton.widthAnchor.constraint(equalToConstant: 44),
-            likeButton.heightAnchor.constraint(equalToConstant: 44),
-        ])
+                 cellImage.topAnchor.constraint(equalTo: topAnchor, constant: 4),
+                 cellImage.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -4),
+                 cellImage.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
+                 cellImage.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
+                 
+                 cellLabel.leadingAnchor.constraint(equalTo: cellImage.leadingAnchor, constant: 8),
+                 cellLabel.bottomAnchor.constraint(equalTo: cellImage.bottomAnchor, constant: -8),
+                 
+                 likeButton.topAnchor.constraint(equalTo: cellImage.topAnchor),
+                 likeButton.trailingAnchor.constraint(equalTo: cellImage.trailingAnchor),
+                 likeButton.widthAnchor.constraint(equalToConstant: 44),
+                 likeButton.heightAnchor.constraint(equalToConstant: 44),
+             ])
     }
     
 }
