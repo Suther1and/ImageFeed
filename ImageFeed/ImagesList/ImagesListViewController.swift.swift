@@ -9,6 +9,7 @@ import UIKit
 
 class ImagesListViewController: UIViewController {
     
+//MARK: Private Properties
     let photosName: [String] = Array(0..<20).map{ "\($0)" }
     
     private lazy var tableView = {
@@ -17,12 +18,10 @@ class ImagesListViewController: UIViewController {
         table.backgroundColor = .launchBG
         table.contentInset = UIEdgeInsets(top: 12, left: 0, bottom: 12, right: 0)
         table.register(ImagesListCell.self, forCellReuseIdentifier: ImagesListCell.reuseIdentifier)
-            
         return table
     }()
     
-
-    
+//MARK: LifeCycle
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
@@ -30,6 +29,7 @@ class ImagesListViewController: UIViewController {
         self.tableView.dataSource = self
     }
     
+//MARK: Private Methods
     private func setupUI() {
         self.view.backgroundColor = .launchBG
         [tableView].forEach{
@@ -42,9 +42,9 @@ class ImagesListViewController: UIViewController {
             tableView.topAnchor.constraint(equalTo: self.view.topAnchor),
             tableView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor)
         ])
-        
     }
-    func configCell(for cell: ImagesListCell, with indexPath: IndexPath) {
+    
+    private func configCell(for cell: ImagesListCell, with indexPath: IndexPath) {
         guard let image = UIImage(named: photosName[indexPath.row]) else {
             return
         }
@@ -55,7 +55,6 @@ class ImagesListViewController: UIViewController {
         let isLiked = indexPath.row % 2 == 0
         let likeImage = isLiked ? UIImage(named: "like_button_on") : UIImage(named: "like_button_off")
         cell.likeButton.setImage(likeImage, for: .normal)
-        
     }
     
 }
@@ -64,10 +63,10 @@ class ImagesListViewController: UIViewController {
 //MARK: Extensions
 extension ImagesListViewController: UITableViewDelegate, UITableViewDataSource {
     
-    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         print("\(indexPath.row)")
     }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         photosName.count
     }
@@ -83,7 +82,6 @@ extension ImagesListViewController: UITableViewDelegate, UITableViewDataSource {
         let cellHeight = image.size.height * scale + imageInsets.top + imageInsets.bottom
         return cellHeight
     }
-
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: ImagesListCell.reuseIdentifier, for: indexPath)

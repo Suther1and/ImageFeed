@@ -36,7 +36,7 @@ final class ImagesListCell: UITableViewCell {
         return label
     }()
     
-    //MARK: Setup
+    //MARK: Initializers
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         self.setupUI()
@@ -46,32 +46,33 @@ final class ImagesListCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    //MARK: UI-Setup
     private func setupUI() {
-
+        
         self.contentView.backgroundColor = .launchBG
-
+        
         [cellImage,
          likeButton,
-         cellLabel,
-         ].forEach{
+         cellLabel].forEach{
             $0.translatesAutoresizingMaskIntoConstraints = false
             self.contentView.addSubview($0)
         }
-    //MARK: Constraints
+        
+        //MARK: Constraints
         NSLayoutConstraint.activate([
-                 cellImage.topAnchor.constraint(equalTo: topAnchor, constant: 4),
-                 cellImage.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -4),
-                 cellImage.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
-                 cellImage.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
-                 
-                 cellLabel.leadingAnchor.constraint(equalTo: cellImage.leadingAnchor, constant: 8),
-                 cellLabel.bottomAnchor.constraint(equalTo: cellImage.bottomAnchor, constant: -8),
-                 
-                 likeButton.topAnchor.constraint(equalTo: cellImage.topAnchor),
-                 likeButton.trailingAnchor.constraint(equalTo: cellImage.trailingAnchor),
-                 likeButton.widthAnchor.constraint(equalToConstant: 44),
-                 likeButton.heightAnchor.constraint(equalToConstant: 44),
-             ])
+            cellImage.topAnchor.constraint(equalTo: topAnchor, constant: 4),
+            cellImage.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -4),
+            cellImage.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
+            cellImage.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
+            
+            cellLabel.leadingAnchor.constraint(equalTo: cellImage.leadingAnchor, constant: 8),
+            cellLabel.bottomAnchor.constraint(equalTo: cellImage.bottomAnchor, constant: -8),
+            
+            likeButton.topAnchor.constraint(equalTo: cellImage.topAnchor),
+            likeButton.trailingAnchor.constraint(equalTo: cellImage.trailingAnchor),
+            likeButton.widthAnchor.constraint(equalToConstant: 44),
+            likeButton.heightAnchor.constraint(equalToConstant: 44),
+        ])
     }
     
 }
