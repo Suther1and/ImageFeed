@@ -9,7 +9,7 @@ import UIKit
 
 final class ImagesListCell: UITableViewCell {
     
-    //MARK: Private Properties
+    //MARK: - Private Properties
     
     static let reuseIdentifier = "ImagesListCell"
     
@@ -48,18 +48,19 @@ final class ImagesListCell: UITableViewCell {
         return label
     }()
     
-    //MARK: Initializers
+    //MARK: - Initializers
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        self.setupUI()
+        self.setupViews()
+        self.setupConstraints()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    //MARK: UI-Setup
-    private func setupUI() {
+    //MARK: - UI-Setup
+    private func setupViews() {
 //        gradientLabelView.addGradient([UIColor.blue, UIColor.red], frame: self.frame)
         self.contentView.backgroundColor = .launchBG
         
@@ -71,35 +72,38 @@ final class ImagesListCell: UITableViewCell {
             $0.translatesAutoresizingMaskIntoConstraints = false
             self.contentView.addSubview($0)
         }
+    }
 //        gradientLabelView.addSubview(cellLabel)
-        cellLabel.translatesAutoresizingMaskIntoConstraints = false
+//        cellLabel.translatesAutoresizingMaskIntoConstraints = false
+        //MARK: - Constraints
+        private func setupConstraints() {
+            //MARK: Constraints
+            NSLayoutConstraint.activate([
+                cellImage.topAnchor.constraint(equalTo: topAnchor, constant: 4),
+                cellImage.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -4),
+                cellImage.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
+                cellImage.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
+                
+                cellLabel.leadingAnchor.constraint(equalTo: cellImage.leadingAnchor, constant: 8),
+                cellLabel.bottomAnchor.constraint(equalTo: cellImage.bottomAnchor, constant: -8),
+                
+                likeButton.topAnchor.constraint(equalTo: cellImage.topAnchor),
+                likeButton.trailingAnchor.constraint(equalTo: cellImage.trailingAnchor),
+                likeButton.widthAnchor.constraint(equalToConstant: 44),
+                likeButton.heightAnchor.constraint(equalToConstant: 44),
+                
+                //            gradientLabelView.topAnchor.constraint(equalTo: cellLabel.topAnchor),
+                //            gradientLabelView.bottomAnchor.constraint(equalTo: cellImage.bottomAnchor),
+                //            gradientLabelView.leadingAnchor.constraint(equalTo: cellImage.leadingAnchor),
+                //            gradientLabelView.trailingAnchor.constraint(equalTo: cellImage.trailingAnchor),
+                
+                gradientImage.topAnchor.constraint(equalTo: cellLabel.topAnchor),
+                gradientImage.bottomAnchor.constraint(equalTo: cellImage.bottomAnchor),
+                gradientImage.leadingAnchor.constraint(equalTo: cellImage.leadingAnchor),
+                gradientImage.trailingAnchor.constraint(equalTo: cellImage.trailingAnchor),
+                
+            ])
         
-        //MARK: Constraints
-        NSLayoutConstraint.activate([
-            cellImage.topAnchor.constraint(equalTo: topAnchor, constant: 4),
-            cellImage.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -4),
-            cellImage.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
-            cellImage.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
-            
-            cellLabel.leadingAnchor.constraint(equalTo: cellImage.leadingAnchor, constant: 8),
-            cellLabel.bottomAnchor.constraint(equalTo: cellImage.bottomAnchor, constant: -8),
-            
-            likeButton.topAnchor.constraint(equalTo: cellImage.topAnchor),
-            likeButton.trailingAnchor.constraint(equalTo: cellImage.trailingAnchor),
-            likeButton.widthAnchor.constraint(equalToConstant: 44),
-            likeButton.heightAnchor.constraint(equalToConstant: 44),
-            
-//            gradientLabelView.topAnchor.constraint(equalTo: cellLabel.topAnchor),
-//            gradientLabelView.bottomAnchor.constraint(equalTo: cellImage.bottomAnchor),
-//            gradientLabelView.leadingAnchor.constraint(equalTo: cellImage.leadingAnchor),
-//            gradientLabelView.trailingAnchor.constraint(equalTo: cellImage.trailingAnchor),
-            
-            gradientImage.topAnchor.constraint(equalTo: cellLabel.topAnchor),
-            gradientImage.bottomAnchor.constraint(equalTo: cellImage.bottomAnchor),
-            gradientImage.leadingAnchor.constraint(equalTo: cellImage.leadingAnchor),
-            gradientImage.trailingAnchor.constraint(equalTo: cellImage.trailingAnchor),
-            
-        ])
     }
     
 }

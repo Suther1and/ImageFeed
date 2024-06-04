@@ -7,10 +7,10 @@
 
 import UIKit
 
-class ImagesListViewController: UIViewController {
+final class ImagesListViewController: UIViewController {
     
-//MARK: Private Properties
-    let photosName: [String] = Array(0..<20).map{ "\($0)" }
+    //MARK: - Private Properties
+    private let photosName: [String] = Array(0..<20).map{ "\($0)" }
     
     private lazy var tableView = {
         let table = UITableView()
@@ -21,21 +21,25 @@ class ImagesListViewController: UIViewController {
         return table
     }()
     
-//MARK: LifeCycle
+    //MARK: - LifeCycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupUI()
+        setupViews()
+        setupConstraints()
         self.tableView.delegate = self
         self.tableView.dataSource = self
     }
     
-//MARK: Private Methods
-    private func setupUI() {
+    //MARK: - UI-Setup
+    private func setupViews() {
         self.view.backgroundColor = .launchBG
         [tableView].forEach{
             $0.translatesAutoresizingMaskIntoConstraints = false
             self.view.addSubview($0)
         }
+    }
+    //MARK: - Constraints
+    private func setupConstraints() {
         NSLayoutConstraint.activate([
             tableView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
             tableView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
@@ -44,8 +48,7 @@ class ImagesListViewController: UIViewController {
         ])
     }
     
-   
-    
+    //MARK: - Private Methods
     private func configCell(for cell: ImagesListCell, with indexPath: IndexPath) {
         guard let image = UIImage(named: photosName[indexPath.row]) else {
             return
@@ -58,12 +61,10 @@ class ImagesListViewController: UIViewController {
         let likeImage = isLiked ? UIImage(named: "like_button_on") : UIImage(named: "like_button_off")
         cell.likeButton.setImage(likeImage, for: .normal)
     }
-    
 }
 
-
-//MARK: Extensions
-extension ImagesListViewController: UITableViewDelegate, UITableViewDataSource {
+//MARK: - Extension  UITableViewDataSource
+extension ImagesListViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         print("\(indexPath.row)")
@@ -72,7 +73,9 @@ extension ImagesListViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         photosName.count
     }
-    
+}
+//MARK: - Extension UITableViewDelegate
+extension ImagesListViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         guard let image = UIImage(named: photosName[indexPath.row]) else {
             return 0
@@ -87,13 +90,13 @@ extension ImagesListViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: ImagesListCell.reuseIdentifier, for: indexPath)
-
+        
         guard let imageListCell = cell as? ImagesListCell else {
             return UITableViewCell()
         }
-
+        
         configCell(for: imageListCell, with: indexPath)
-
+        
         return imageListCell
     }
     
